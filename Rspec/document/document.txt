@@ -1,0 +1,154 @@
+Viết Rspec (test) trong Rails
+
+* Rspec mục đích kiểm thử các chức năng được viết bởi RoR
+ + Cú pháp ngắn gọn, dễ hiểu
+ + Viết test case tiện lợi
+
+* Gem rspec
+gem install rspec-rails
+
+group :test, :development do
+  gem "rspec-rails", "~>3.0.0"
+end
+
+-> bundle (bundle install)
+rails generate rspec:install
+(models, controllers, helpers, rails_helper.rb, spec_helper.rb)
+
+Cấu trúc:
+spec/(controller/factories/models)
+
+- factories: nơi chứa dữ giả dùng trong quá trình test
+
+let, describe, context, it, subject, expect
+
+*) let: khởi tạo object
+*) subject: xác định đối tượng object trong test case.
+*) describe: miêu tả chung cho một nhóm các test case
+*) context: dùng để miêu tả cho một nhóm các test case nhưng dùng để phân nhánh
+  các test case theo từng trường hợp.
+*) before: nhóm các thao tác chung như tạo dữ liệu
+*) it: dùng để mô tả test case
+
+II) Connect Database
+1) config/database.yml
+  test:
+    adapter: mysql2
+    encoding: utf8
+    database: fels_db
+    username: root
+    password: "
+    host: 127.0.0.1
+    port: 3306
+
+2) Sử dụng FactoryGirl/FactoryBot tạo dữ liệu giả
+require "faker"
+
+FactoryGirl.define do
+  factory :user do |f|
+    f.name {Faker::Name.name}
+    f.email {Faker::Internet.email}
+    f.password {"foobar"}
+    f.password_confirmation {"foobar"}
+  end
+end
+
+* Gem shoulda matchers
+
+group :test do
+  gem "shoulda-matchers" (, "~>3.1")
+  gem "database_cleaner"
+end
+
+- Giúp cho việc viết test dễ dàng hơn, tiết kiệm thời gian, code ngắn gọn, dễ đọc
+- Test framework: rspec, minitest,...
+- Matcher: ...
+
+* Gem database cleaner
+  Thực hiện clean database, rollback db lại trạng thái trước khi chạy
+  test -> db luôn nhất quán.
+
+* Gem capybara: là một framework tự động, giúp chúng ta kiểm tra các ứng dụng web
+  bằng cách mô phỏng cách mà người dùng thao tác với ứng dụng (giả lập các thao
+  tác của người dùng) (integration tests)
+
+* Gem "factory_bot_rails"
+- Factory Girl/ Factory Bot: cho phép tạo ra các object, dữ liệu giả với các
+  giá trị mặc định
+- Faker: tạo ra các object với các giá trị ngẫu nhiên
+
+* Matcher
+- eq: so sánh bằng
+- be_valid, be_empty (?)
+- be_truthy/be_falsey: trả về giá trị true/false
+- raise_error: kiểm tra được cả những lỗi phát sinh
+- include: kiểm tra xem một phần tử có nằm trong mảng hay không
+- be_within(Y).of(X): giá trị trả về nằm trong khoảng X-Y đến X+Y
+
+ActiveModel:
+- have_secure_password
+- validate_absence_of
+- validate_acceptance_of
+- validate_confirmation_of
+- validate_exclusion_of
+- validate_inclusion_of
+- validate_length_of
+- validate_numericality_of
+- validate_presence_of
+
+ActiveRecord :
+
+- accept_nested_attributes_for
+- belong_to
+- define_enum_for
+- have_and_belong_to_many
+- have_db_column
+- have_db_index tests
+- have_many
+- have_one
+- have_readonly_attribute
+- serialize
+- validate_uniqueness_of
+
+ActiveController:
+
+- filter_param
+- permit tests
+- redirect_to
+- render_template
+- render_with_layout
+- rescue_from tests
+- respond_with tests
+- route
+- set_session
+- set_flash
+- use_after_action
+- use_around_action
+- use_before_action tests
+
+* Test controller thường quan tâm tới
+
+- Trạng thái trả về của phương thức
+- Controller có render template mong muốn không?
+- Controller có render layout mong muốn không?
+- Controller có tạo flash messages hay không?
+- Thông tin có thay đổi hay bị xóa bỏ hay không?
+- Controller có chuyển đến url mới không?
+
+*) Conclusion
+
+group :development, :test do
+  gem "rspec-rails"(, "~> 3.8")
+  gem "shoulda-matchers"
+  gem "factory_bot_rails" (factory_girl_rails)
+  gem "faker" (ffaker?)
+end
+
+group :test do
+  gem "capybara", ">= 2.15"
+end
+
+Tài liệu tham khảo:
+https://viblo.asia/p/tim-hieu-gem-shoulda-matchers-trong-viet-rspec-AyQMpJ7pv0Ek
+https://viblo.asia/p/tim-hieu-ve-rspec-trong-rails-ojaqG0B0REKw
+http://www.betterspecs.org/
