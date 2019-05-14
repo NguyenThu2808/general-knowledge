@@ -1,0 +1,94 @@
+- p, div, span
+- positon: (static, relative, absolute, inherit, fixed)
+- id, class
+- margin, padding
+- float?
+
+1. Sự khác nhau giữa các thẻ <p>, <div> và <span>
+  - <p>, <div> là các phần tử mức khối
+  - <span> là phần tử nội tuyến (inline) và do đó lề trên <span> sẽ không hoạt động
+VD:
+<span style="margin: 10px;">Sự khác nhau</span>
+Ta sẽ thấy được rằng: margin-top, margin-bottom có giá trị là 10px nhưng không hoạt động.
+Nếu bạn muốn định dạng lề trên, bạn có thể làm <span> -> phần tử khối bằng cách sử dụng
+  "display: block;" hoặc "display: inline-block;"
+=>
+  + block: Tạo thành một khối có xuống dòng, lề trên hoạt đông, chiếm 1 dòng
+    -> margin-right là 10px nhưng được căn tự động. (display: block;)
+  + inline-block: Các phần tử nối nhau nằm trên một dòng, lề trên hoạt động.
+  + inline: Hiển thị trên một dòng, lề trên không hoạt động.
+
+Block: div, p, h1, h2 (gom nhóm nhiều thẻ)
+Inline: span, b, del, strong
+
+- <div> thường được sử dụng cho một khối nội dung chứa các phần tử lồng khác nhau.
+  Phân chia bố cục.
+- <p> (paragraphs) được sử dụng cho các đoạn văn -> nội dụng <div> ít ngữ nghĩa hơn là nội dung bên trong thẻ <p>
+
+*) Đặc điểm của một số thẻ cơ bản:
+- <body> margin: 8px;
+- <span> height, width: auto, không margin.
+- <div>, <p> height: 18px;
+- <p> margin: 16px 0; (các thẻ <p> nằm cạnh nhau: margin có thể chồng lên nhau và xuống dòng )
+- <h1> font-size: 37px;
+      margin: 21,440px;
+
+2. Position (static, relative, absolute, fixed, inherit)
+
+* position: static;
+- Không bị ảnh hưởng bởi các thuộc tính: top, left, right, bottom
+- Các thành phần được định nghĩa trước sẽ xuất hiện trước và ngược lại, các thành phần được định nghĩa sau sẽ chiếm chỗ trống ngược lại của trang (Được đặt ở vị trí nó vốn có)
+
+* position: fixed;
+- Được đặt ở vị trí tương đối so với cửa sổ trình duyệt. Top, left, right, bottom để xác định vị trí cụ thể của thành phần
+-> Nằm cố định ngay cả khi cuộn trang (Giống như ở hai mặt phẳng khác nhau đè lên nhau)
+
+* position: relative;
+- Được đặt ở vị trí tương đối so với chính nó (thay đổi vị trí của thành phần)
+
+* position: absolute;
+- Được đặt ở vị trí tương đối so với một element (position khác)
+
+* position: inherit;
+- Thừa hưởng các thuộc tính từ thành phần cha.
+
+## Absolute: định vị của một thành phần bên trong không gian thành phần chứa chúng (Không phụ thuộc vào margin, float)
+=> Để sử dụng được absolute position thì thành phần mẹ được gán position là relative.
+Nếu thành phần mẹ không được gán relative thì mặc định thành phần <body> được coi là thành phần relative.
+
+##### TÓM LẠI #####
+
+static: Dạng mặc định - sẽ hiển thị theo đúng thứ tự của nó (hủy các thuộc tính bên dưới nó)
+relative: Định vị vị trí tuyệt đối (vị trí bao ngoài) => lúc này thẻ HTML bên trong sẽ coi nó là thẻ cha
+absolute: Định vị vị trí tương đối theo thẻ cha (thẻ khai báo relative hoặc thẻ <body> nếu không có khai báo)
+fixed: Định vị vị trí tương đối cho cửa sổ của brower của trình duyệt, khi  kéo scroll sẽ bị ẩn đi.
+inherit: Thừa hưởng các thuộc tính từ thành phần cha (thành phần bao ngoài nó)
+
+3. Phân biệt ID, Class trong CSS
+- ID, Class đều được dùng để mô tả (quy định) thuộc tính cho một đối tượng nào đó.
+
++ ID: được dùng để xác định một đối tượng duy nhất trong HTML, không được tồn tại 2 ID trên cùng một trang web.
+(Có phân biệt)
++ Class: được dùng để xác định một lớp các đối tượng có chung thuộc tính.
+Có rất nhiều các đối tượng dùng chung một class nào đó (kế thừa => đặt một cái tên có ý nghĩa phù hợp với tính năng hay nội dung)
+(Không phân biệt chữ hoa, chữ thường)
+
+*) Selector (bộ chọn - Chọn các thành phần muốn định dạng)
+------ "descendant", type, id, class... selector ------
+
+- Dựa vào ID, Class,... để truy xuất tới và cách truy xuất đó gọi là "selector"
+
+VD:
+div.bg-yellow (Bạn chỉ muốn thẻ <div> có tác động tới Class có tên "bg-yellow")
+
+- x: visisted, x:link,
+- X>Y, X~Y, X+Y, X[title], X[href=""], X[hrf*,$,1]...
+- checked, after, before, hover
+
+- <Internal, External>
+
+4. Padding, Margin
+- padding: Khoảng cách từ đường viền đến nội dung của phần tử
+- margin: Khoảng cách từ viền đến lề
+
+5. Float
