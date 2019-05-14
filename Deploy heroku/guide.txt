@@ -1,0 +1,27 @@
+heroku login
+heroku open
+* Gemfile
+  group :production do
+    gem "pg"
+    gem "rails_12factor"
+    gem "faker"
+  end
+
+git add .
+git add Gemfile.lock -f
+git add config/database.yml (Những file trong gitignore)
+git commit -m "Deploy heroku" (--amend)
+
+heroku create ten-app
+
+git push origin deploy-heroku
+git push heroku deploy-heroku:master (-f) (bundle exec rake assets:precompile)
+
+
+heroku run rake db:migrate (create, drop tùy trường hợp)
+heroku run rake db:seed
+
+heroku pg:reset --confirm rfid-fashion-system (reset database)
+heroku run rake db:migrate
+heroku run rake db:seed
+heroku run rake db:schema:load
