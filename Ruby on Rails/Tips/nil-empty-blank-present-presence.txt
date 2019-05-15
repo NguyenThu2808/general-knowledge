@@ -1,0 +1,48 @@
+1. Sự khác biệt của NULL và rỗng
+- NULL: Không tồn tại (Không tồn tại đối tượng trong bộ nhớ)
+- Rỗng: Tồn tại cái không có gì (Tồn tại đối tượng String trong bộ nhớ và dữ liệu
+của đối tượng này đang có một chuỗi không chứa kí tự nào cả)
+
+Chưa tồn tại | Đã tồn tại
+
+-> Kiểm tra != NULL trước khi thực hiện.
+
+2. Sự khác biệt của nil?, empty?, blank?... trong Ruby on Rails.
+
+*) nil? (Ruby)
+- Trả về true khi thực sự là nil.
+- Có thể sử dụng với bất kì đối tượng nào.
+
+Ex: nil.nil? => true. Các trường hợp khác false.
+
+*) empty? (Ruby)
+- Sử dụng trên các đối tượng dạng tập hợp: Hash {}, Array [], Set
+- Sử dụng empty? với String (bởi vì String là mảng các kí tự)
+## Lưu ý:
+- Khi sử dụng empty phải biết chắc chắn rằng kiểu dữ liệu của bạn đang sử dụng là Array hay nil.
+Không biết trước điều này thì sử dụng nó sẽ không an toàn. Bạn cần check nil? trước.
+
+Ex: " ".empty? => false
+
+*) blank? (Rails)
+- nil, false là blank; còn true thì không.
+
+Ex: nil.blank?, false.blank? => true
+true.blank? => false
+
+- Đối với Array và Hash thì là blank? khi chúng empty.
+- String#blank? kiểm tra cả khoảng trắng (String#empty chỉ kiểm tra độ dài của chuỗi).
+=> Một String là blank nếu nó trống và chỉ chứa khoảng trắng.
+
+Ex:
+"  ".blank?
+"\t\n\r".blank?
+
+- Number, Time không có blank, luôn trả về là false.
+
+*) present? (Rails)
+- present? là phủ định của blank? có thể sử dụng ở bất cứ đâu.
+
+*) presence
+- Tham số gửi từ form
+params[:state].presence || params[:country].presence || 'US'
