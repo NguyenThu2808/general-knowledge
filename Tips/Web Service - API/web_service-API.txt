@@ -1,0 +1,10 @@
+Giống nhau: Web Service Serve, API hoạt động như một phương tiện giao tiếp.
+## Đầu vào, đầu ra là gì?
+Khác nhau:
+- Web Service tạo điều kiện cho sự tương tác giữa hai máy trên mạng.
+- API hoạt động như một interface giữa hai ứng dụng khác nhau để chúng có thể giao tiếp với nhau.
+
+API: Application Program Interface
+Restful API ~ Web Service
+REST: Representational state tranfer technology
+SOAP: Simple Object Access Protocal
