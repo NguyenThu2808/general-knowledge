@@ -1,0 +1,44 @@
+1. map
+- Lấy tất cả các đối tượng, sử dụng chúng để chạy biểu thức trong block
+=> Trả về mảng mới là kết quả sau khi chạy hết các phần tử của mảng đối với biểu thức trong block
+
+  [1,2,3,4,5,6,7,8,9,10].map{ |e| e * 5 }
+  # => [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+
+- Với biểu thức trong block là điều kiện => Trả về một mảng các giá trị True/False
+
+  [1,2,3,4,5,6,7,8,9,10].map{ |e| e >= 5}
+  # => [false, false, false, false, true, true, true, true, true, true]
+
+2. collect
+- Về cơ bản khá giống map
+- Ta thường dùng khi muốn tạo ra một danh sách các phần tử mới từ một mảng cho trước
+với các phần tử mới là các giá trị thỏa mãn với khối lệnh thực hiện trong block
+(kết quả của việc thực hiện biểu thức trong block với lần lượt các phần tử trong mảng)
+
+  [1,2,3,4,5,6,7,8,9,10].map{ |e| e * 5 }
+  # => [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+
+  [1,2,3,4,5,6,7,8,9,10].map{ |e| e >= 5}
+  # => [false, false, false, false, true, true, true, true, true, true]
+
+  ["a", "b", "c"].collect { |letter| letter.capitalize }
+  (Hoặc cách viết ngắn gọn: ["a", "b", "c"].collect(&:capitalize))
+  # => ["A", "B", "C"]
+
+3. select
+=> Trả về mảng các giá trị thỏa mãn điều kiện trong block
+
+  [1,2,3,4,5,6,7,8,9,10].select{ |e| e >= 5 }
+  # => [5, 6, 7, 8, 9, 10]
+
+  [1,2,3,4,5,6,7,8,9,10].select{ |e| e * 5 }
+  # => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+4. reject
+- Kiểm tra logic các phần tử trong mảng trả về FALSE => Gán vào mảng
+5. detect
+6. inject
+
+
+

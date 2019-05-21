@@ -1,0 +1,9 @@
+1. Phân biệt String và Symbol trong Ruby
+- String: Cùng một chuỗi nhưng là những đối tượng khác nhau
+Ex: (irb)
+"hello".object_id => 47195817398360
+"hello".object_id => 47195817381200
+- Symbol: Cùng một symbol (:hello) là cùng một đối tượng.
+Ex:
+:hello.object_id => 1294108
+Khi sử dụng symbol :hello lần đầu tiên, Ruby sẽ cấp phát bộ nhớ và tạo ra symbol này cho bạn, khi bạn cố gắng truy cập vào đó một lần nữa, Ruby sẽ lấy lại nó từ bộ nhớ thay vì tạo ra mới, vì vậy symbol sẽ ít sử dụng bộ nhớ hơn. Và điều này giảm được việc lãng phí bộ nhớ.

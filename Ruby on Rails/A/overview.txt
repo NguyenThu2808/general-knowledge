@@ -1,0 +1,69 @@
+1. Pluck
+- Ex: Category.pluck(:name)
+=> Trả về một mảng các tên => trực tiếp convert kết quả db sang dạng mảng, mà không xây dựng objects ActiveRecord
+- pluck áp dụng ở cấp db. Nó sẽ chỉ truy vấn những trường cụ thể
+2. Map
+- Trả về một mảng các đối tượng
+3. Class method
+4. includes, joins
+
+5. find, find_by, where, object
+6. select, detect
+7. Include, Extend
+8. Callback
+9. Kiểu dữ liệu
+10. Enum
+11. instance of
+duplicate, empty, valid, length, presence
+
+Câu hỏi:
+
+1. The difference between pluck and collect in rails
+- Collect: lấy tất cả dữ liệu và trả về bản ghi cho bạn
+Khi bạn cần tất cả bản ghi sử dụng collect
+Một vài trường thì sử dụng pluck
+
+Ex:
+Client.pluck(:id, :name)
+# SELECT clients.id, clients.name FROM clients
+# => [[1, 'David'], [2, 'Jeremy'], [3, 'Jose']]
+
+User.first.gifts.collect(&:id)
+User.first.gifts.pluck(:id)
+
++ only id (Rails 4): User.first.gifts.ids
++ only some fields (Rails 4): User.first.gifts.pluck(:id, :name,... )
++ only one field (Rails 3): User.first.gifts.pluck(:id)
++ all fields: collect
++ some fields (Rails 4): pluck
++ some fields (Rails 3): select and collect
+
+2. Method :pluck, :select khi làm việc với Rails ActiveRecord
+Hiểu rõ về chúng sẽ giúp ta phần nào tăng hiệu suất của ứng dụng đang viết.
+
+select: truy vấn ra dữ liệu của một hoặc nhiều trường trong cở sơ dữ liệu
+Ex:
+User.select :name, :email
+User Load (0.8ms)  SELECT  "users"."name", "users"."email" FROM "users" LIMIT ?  [["LIMIT", 11]]
+ => #<ActiveRecord::Relation [#<User id: nil, name: "Example User", email: "example@railstutorial.org">, #<User id: nil, name: "Brennan Emard", email: "example-1@railstutorial.org">, ...]>
+
+=> Câu lệnh này đã trả về một ActiveRecord::Relation object
+
+pluck:
+Khi sử dụng pluck, bạn có thể sử dụng thao tác select nhưng bỏ qua việc tạo ActiveRecord Model
+
+User.pluck :name, :email
+   (0.9ms)  SELECT "users"."name", "users"."email" FROM "users"
+ => [["Example User", "example@railstutorial.org"], ["Brennan Emard", "example-1@railstutorial.org"], ["Damian Frami", "example-2@railstutorial.org"], ...]
+=> Kết quả gần giống nhau, thời gian thực khi cũng gần như nhau.
+Sự khác nhau về chi phí việc tạo các object. (Mặc dù khác nhau về hiệu năng)
+
+=> Với số lượng bản ghi đủ lớn (vài nghìn trở lên), có thể quan sát thấy rằng select chậm hơn đáng kể so với pluck.
+"Lý do là vì với select, Rails cần một khoảng thời gian nhất định để tạo ra các object"
+
+- select trả về một object nên sẽ được sử dụng khi bạn muốn nối chuỗi các method của ActiveRecord.
+- pluck thì đơn thuần là chỉ lấy ra dữ liệu, khi đó sức mạnh của ActiveRecord sẽ bị hạn chế nhiều khi làm việc với câu lệnh này.
+
+Tóm lại, một lưu ý quan trọng:
+- pluck được sử dụng để lấy ra dữ liệu từ model
+- select được dùng để làm việc với object của các model ấy

@@ -1,0 +1,6 @@
+Install Ruby rvm 2.3.1
+Install Rails
+Terminal Guake
+Install mysql server ubuntu
+-> bundle install sau khi cài gem install mysql2
+-> sudo apt-get install libmysqlclient-dev
